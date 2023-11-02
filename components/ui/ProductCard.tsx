@@ -6,8 +6,8 @@ import { Expand, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Product } from "@/lib/types";
-// import useCart from "@/hooks/useCart";
-// import usePreviewModal from "@/hooks/usePreviewModal";
+import useCart from "@/hooks/useCart";
+import usePreviewModal from "@/hooks/usePreviewModal";
 
 import Currency from "@/components/ui/Currency";
 import IconButton from "@/components/ui/IconButton";
@@ -17,21 +17,21 @@ interface ProductCard {
 }
 
 const ProductCard: React.FC<ProductCard> = ({ data }) => {
-//   const previewModal = usePreviewModal();
-//   const cart = useCart();
+  const previewModal = usePreviewModal();
+  const cart = useCart();
   const router = useRouter();
 
   const handleClick = () => router.push(`/product/${data?.id}`);
 
-//   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
-//     event.stopPropagation();
-//     previewModal.onOpen(data);
-//   };
+  const onPreview: MouseEventHandler<HTMLButtonElement> = event => {
+    event.stopPropagation();
+    previewModal.onOpen(data);
+  };
 
-//   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
-//     event.stopPropagation();
-//     cart.addItem(data);
-//   };
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = event => {
+    event.stopPropagation();
+    cart.addItem(data);
+  };
 
   return (
     <div className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4" onClick={handleClick}>
@@ -47,14 +47,12 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
           <div className="flex gap-x-6 justify-center">
             <IconButton
               icon={<Expand size={20} className="text-gray-600" />}
-            //   onClick={onPreview}
-              onClick={() => {}}
+              onClick={onPreview}
 
             />
             <IconButton
               icon={<ShoppingCart size={20} className="text-gray-600" />}
-            //   onClick={onAddToCart}
-              onClick={() => {}}
+              onClick={onAddToCart}
             />
           </div>
         </div>
